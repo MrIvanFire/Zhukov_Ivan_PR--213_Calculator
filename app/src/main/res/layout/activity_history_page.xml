@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp">
+
+    <!-- Кнопка Назад -->
+
+    <!-- Основной контент странички-->
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
+        android:text="Назад"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal">
+
+        <!-- Имя от пользователя -->
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Имя пользователя"
+            android:textColor="#FAF8F8"
+            android:textColorLink="#DFD7D7"
+            android:textSize="20sp" />
+
+        <!-- История -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-black"
+            android:text="История"
+            android:textColor="#FDFDFD"
+            android:textSize="30sp" />
+
+        <!-- Список сохранений в истории -->
+        <ListView
+            android:id="@+id/historyListView"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:background="#CDF5F5F5"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

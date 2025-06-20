@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollViewRegistration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/gradient_background"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Логотип -->
+        <ImageView
+            android:id="@+id/logoRegistration"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="Логотип приложения"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_marginBottom="24dp"
+            app:tint="#FFFFFF" />
+
+        <!-- Заголовок - регистрация-->
+        <TextView
+            android:id="@+id/titleRegistration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Регистрация"
+            android:textColor="#e0e0e0"
+            android:textSize="30sp" />
+
+        <!-- Имя от пользователя -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Имя пользователя"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#aaa" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Почта от пользователя -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayoutReg"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Электронная почта"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailInputReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLength="50"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#aaa" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Пароль пользователя-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayoutReg"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Пароль"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordInputReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:maxLength="8"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#aaa" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Повторный ввод пароля для пользователя-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordRepeatLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Повторите пароль"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordRepeatInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:maxLength="8"
+                android:textColor="#000000"
+                android:textColorHint="#aaa" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Кнопка Регистрация -->
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Регистрация"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="#2C2C2C"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Ссылка для перехода на страницу Авторизацию -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="У вас уже есть аккаунт?"
+                android:textColor="#ccc"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"/>
+            <TextView
+                android:id="@+id/txtGoAuth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Войти"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
