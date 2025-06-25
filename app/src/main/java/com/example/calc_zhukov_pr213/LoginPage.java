@@ -27,21 +27,22 @@ public class LoginPage extends AppCompatActivity {
 
         // Обработка нажатия кнопки входа
         loginButton.setOnClickListener(v -> {
-            String email = emailInput.getText().toString();
-            String password = passwordInput.getText().toString();
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginPage.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            // Проверка данных в SharedPreferences
-            SharedPreferences sharedPreferences = getSharedPreferences("User Prefs", MODE_PRIVATE);
+            //Проверка данных пользователя
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
             String savedEmail = sharedPreferences.getString("EMAIL", null);
             String savedPassword = sharedPreferences.getString("PASSWORD", null);
 
             if (email.equals(savedEmail) && password.equals(savedPassword)) {
+                String username = sharedPreferences.getString("USERNAME", "");
                 Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                intent.putExtra("USERNAME", username);
                 startActivity(intent);
                 finish();
             } else {
@@ -51,8 +52,7 @@ public class LoginPage extends AppCompatActivity {
 
         // Переход на страничку регистрации
         registerLink.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginPage.this, RegistrPage.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginPage.this, RegistrPage.class));
         });
     }
 }

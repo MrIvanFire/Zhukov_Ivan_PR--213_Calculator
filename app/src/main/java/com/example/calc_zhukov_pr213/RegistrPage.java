@@ -28,39 +28,68 @@ public class RegistrPage extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         txtGoAuth = findViewById(R.id.txtGoAuth);
 
-        // Обработка регистрации пользователя
+        // Обработка регистрации пользователя (Реализация валидации при заполнении полей)
         btnRegister.setOnClickListener(v -> {
-            String username = usernameInput.getText().toString();
-            String email = emailInputReg.getText().toString();
-            String password = passwordInputReg.getText().toString();
-            String repeatPassword = passwordRepeatInput.getText().toString();
+            String username = usernameInput.getText().toString().trim();
+            String email = emailInputReg.getText().toString().trim();
+            String password = passwordInputReg.getText().toString().trim();
+            String repeatPassword = passwordRepeatInput.getText().toString().trim();
 
+            // Проверка на пустоту
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
                 Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
-            } else if (!password.equals(repeatPassword)) {
-                Toast.makeText(this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
-            } else if (password.length() < 4) {
-                Toast.makeText(this, "Пароль должен быть не менее 4 символов", Toast.LENGTH_SHORT).show();
-            } else {
-                // Сохраняю данные в SharedPreferences для временного хранения
-                SharedPreferences sharedPreferences = getSharedPreferences("User  Prefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("USERNAME", username);
-                editor.putString("EMAIL", email);
-                editor.putString("PASSWORD", password);
-                editor.apply();
-
-                Toast.makeText(this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("USERNAME", username); // Передаем имя пользователя
-                startActivity(intent);
+                return;
             }
+
+            // Проверка длины имени ( <= 20 символов)
+            if (username.length() > 20) {
+                usernameInput.setError("Максимум 20 символов");
+                return;
+            }
+
+            // Простая проверка email (должен содержать @ и точку)
+            if (!email.contains("@") || !email.contains(".")) {
+                emailInputReg.setError("Некорректный email");
+                return;
+            }
+
+            // Проверка длины пароля (4-8 символов)
+            if (password.length() < 4 || password.length() > 8) {
+                passwordInputReg.setError("Пароль должен быть от 4 до 8 символов");
+                return;
+            }
+
+            // Проверка пароля на числовой формат
+            try {
+                Integer.parseInt(password);
+            } catch (NumberFormatException e) {
+                passwordInputReg.setError("Пароль должен содержать только цифры");
+                return;
+            }
+
+            // Проверка совпадения паролей
+            if (!password.equals(repeatPassword)) {
+                passwordRepeatInput.setError("Пароли не совпадают");
+                return;
+            }
+
+            // Сохраняю данные в SharedPreferences
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("USERNAME", username);
+            editor.putString("EMAIL", email);
+            editor.putString("PASSWORD", password);
+            editor.apply();
+
+            Toast.makeText(this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("USERNAME", username);
+            startActivity(intent);
         });
 
         // Переход на экран авторизации
         txtGoAuth.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoginPage.class);
-            startActivity(intent);
+            startActivity(new Intent(this, LoginPage.class));
         });
     }
 }

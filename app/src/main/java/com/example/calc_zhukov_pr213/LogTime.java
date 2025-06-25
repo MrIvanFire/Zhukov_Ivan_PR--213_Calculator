@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 // Класс для отображения текущего времени при использовании каких-либо элементов калькулятора
+// Класс  не используется
 public class LogTime {
     private static final ArrayList<String> logs = new ArrayList<>();
 

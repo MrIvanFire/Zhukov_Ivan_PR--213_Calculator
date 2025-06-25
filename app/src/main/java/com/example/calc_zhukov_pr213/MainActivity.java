@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Получаем имя пользователя из Intent
         String username = getIntent().getStringExtra("USERNAME");
         if (username != null) {
-            LogTime.addLog("Добро пожаловать, " + username + "!");
+            HistoryMainMenuHelper.addLog("Добро пожаловать, " + username + "!");
         }
 
         // Обработчики кнопок задач
@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
         // Кнопка очистки
         btnClear.setOnClickListener(v -> {
             logsTextView.setText(""); // Очищаем текстовое поле
-            LogTime.clearLogs(); // Очищаем логи
+            HistoryMainMenuHelper.clearCurrentSessionLogs(); // Очищаем логи текущей сессии
         });
 
         // Кнопка истории
         btnHistory.setOnClickListener(v -> {
             Intent intent = new Intent(this, HistoryPage.class);
-            intent.putStringArrayListExtra("HISTORY", LogTime.getLogs()); // Передаем историю
+            intent.putStringArrayListExtra("HISTORY", HistoryMainMenuHelper.getAllLogs()); // Передаем всю историю
             intent.putExtra("USERNAME", username); // Передаем имя пользователя
             startActivity(intent);
         });
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private void selectTask(int task, String taskName) {
         currentTask = task;
         updateTaskButtons();
-        LogTime.addLog("Выбрана задача: Поиск чисел " + taskName);
+        HistoryMainMenuHelper.addLog("Выбрана задача: Поиск чисел " + taskName);
         displayLogs();
     }
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         String endStr = inputRangeEnd.getText().toString();
 
         if (startStr.isEmpty() || endStr.isEmpty()) {
-            LogTime.addLog("Ошибка: Введите диапазон");
+            HistoryMainMenuHelper.addLog("Ошибка: Введите диапазон");
             displayLogs();
             return;
         }
@@ -92,15 +92,15 @@ public class MainActivity extends AppCompatActivity {
             int end = Integer.parseInt(endStr);
 
             if (start >= end) {
-                LogTime.addLog("Ошибка: Начало диапазона должно быть меньше конца");
+                HistoryMainMenuHelper.addLog("Ошибка: Начало диапазона должно быть меньше конца");
                 displayLogs();
                 return;
             }
 
-            LogTime.addLog("Поиск в диапазоне от " + start + " до " + end);
+            HistoryMainMenuHelper.addLog("Поиск в диапазоне от " + start + " до " + end);
             findSpecialNumbers(start, end);
         } catch (NumberFormatException e) {
-            LogTime.addLog("Ошибка: Введите корректные числа");
+            HistoryMainMenuHelper.addLog("Ошибка: Введите корректные числа");
             displayLogs();
         }
     }
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayLogs() {
         StringBuilder logBuilder = new StringBuilder();
-        for (String log : LogTime.getLogs()) {
+        for (String log : HistoryMainMenuHelper.getCurrentSessionLogs()) {
             logBuilder.append(log).append("\n");
         }
         logsTextView.setText(logBuilder.toString());
@@ -141,52 +141,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findZuckermanNumbers(int start, int end) {
-        LogTime.addLog("Поиск чисел Цукермана...");
+        HistoryMainMenuHelper.addLog("Поиск чисел Цукермана...");
         for (int i = start; i <= end; i++) {
             if (isZuckermanNumber(i)) {
-                LogTime.addLog("Найдено число Цукермана: " + i);
+                HistoryMainMenuHelper.addLog("Найдено число Цукермана: " + i);
             }
         }
-        LogTime.addLog("Поиск завершен");
+        HistoryMainMenuHelper.addLog("Поиск завершен");
         displayLogs();
     }
 
     private void findNivenNumbers(int start, int end) {
-        LogTime.addLog("Поиск чисел Нивена...");
+        HistoryMainMenuHelper.addLog("Поиск чисел Нивена...");
         for (int i = start; i <= end; i++) {
             if (isNivenNumber(i)) {
-                LogTime.addLog("Найдено число Нивена: " + i);
+                HistoryMainMenuHelper.addLog("Найдено число Нивена: " + i);
             }
         }
-        LogTime.addLog("Поиск завершен");
+        HistoryMainMenuHelper.addLog("Поиск завершен");
         displayLogs();
     }
 
     private void findLychrelNumbers(int start, int end) {
-        LogTime.addLog("Поиск чисел Лишрел (" + start + "-" + end + ")");
+        HistoryMainMenuHelper.addLog("Поиск чисел Лишрел (" + start + "-" + end + ")");
         boolean found = false;
 
         for (int i = start; i <= end; i++) {
             if (isLychrelNumber(i)) {
-                LogTime.addLog(String.valueOf(i));
+                HistoryMainMenuHelper.addLog(String.valueOf(i));
                 found = true;
             }
         }
 
         if (!found) {
-            LogTime.addLog("Чисел Лишрел не найдено");
+            HistoryMainMenuHelper.addLog("Чисел Лишрел не найдено");
         }
         displayLogs();
     }
 
     private void findArmstrongNumbers(int start, int end) {
-        LogTime.addLog("Поиск чисел Армстронга...");
+        HistoryMainMenuHelper.addLog("Поиск чисел Армстронга...");
         for (int i = start; i <= end; i++) {
             if (isArmstrongNumber(i)) {
-                LogTime.addLog("Найдено число Армстронга: " + i);
+                HistoryMainMenuHelper.addLog("Найдено число Армстронга: " + i);
             }
         }
-        LogTime.addLog("Поиск завершен");
+        HistoryMainMenuHelper.addLog("Поиск завершен");
         displayLogs();
     }
 
